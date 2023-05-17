@@ -44,23 +44,39 @@ function createCharts(numbers) {
     polygonChart.draw();
 
     // Создание диаграммы размаха
-    let boxPlotChart = anychart.box();
-    boxPlotChart.data(numbers);
-    boxPlotChart.title("Box plot");
-    boxPlotChart.container("container3");
-    boxPlotChart.draw();
 
+
+
+    let dataForBox=[{low: findQuartiles(numbers)[0],
+        q1:findQuartiles(numbers)[1],
+        median:findQuartiles(numbers)[2],
+        q3:findQuartiles(numbers)[3],
+        high:findQuartiles(numbers)[4]}]
+
+
+
+    chart = anychart.box();
+
+
+    series = chart.box(dataForBox);
+
+
+    chart.container("container3");
+
+
+    chart.draw();
     // Создание диаграммы Парето
-    let paretoChart = anychart.column();
-    paretoChart.data(histogramData);
-    paretoChart.title("Paretto diagram");
-    paretoChart.xAxis().title("Number");
-    paretoChart.yAxis().title("Frequency");
-    paretoChart.container("container4");
-    paretoChart.draw();
-    paretoChart.yScale().stackMode("percent");
-    paretoChart.yAxis().labels().format("{%Value}{numDecimals:0}%");
-    paretoChart.yAxis().title(" Frequency");
+
+    var chart = anychart.pareto();
+
+    chart.data(numbers);
+    chart.title('Pareto');
+    chart.yAxis(0).title('Number');
+    chart.yAxis(1).title(' percentage');
+
+    chart.container('container4');
+
+    chart.draw();
 
     // Создание круговой диаграммы
     let pieChart = anychart.pie();
@@ -78,7 +94,24 @@ function findQuartiles(arr) {
 
     return [arr[0], getMedian(arrFirstPart)[0], getMedian(arr)[0], getMedian(arrSecondPart)[0], arr[arr.length - 1]];
 }
-
+function getMedian(arr) {
+    var median = [];
+    arr = arr.sort(function(a, b) {
+        return a - b;
+    });
+    if (arr.length % 2 === 1) {
+        var index = Math.floor(arr.length / 2 - 1);
+        median.push(arr[index]);
+    }
+    else if (arr.length % 2 === 0) {
+        var indexes = [arr.length / 2 - 1, arr.length / 2];
+        for (var _i = 0, indexes_1 = indexes; _i < indexes_1.length; _i++) {
+            var index = indexes_1[_i];
+            median.push(arr[index]);
+        }
+    }
+    return median;
+}
 // Пример использования
-let numbers = [1, 2, 3, 2, 1, 3, 3, 4, 5, 4];
+let numbers = [1, 2, 3, 2, 1, 3, 3, 4, 5, 4,22,31,21,32,3,2,3];
 createCharts(numbers);
