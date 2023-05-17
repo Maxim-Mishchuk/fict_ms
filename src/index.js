@@ -1,4 +1,3 @@
-var input = [];
 function getMean(arr) {
     var sum = 0;
     for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
@@ -59,4 +58,11 @@ function sampleVariance(arr) {
 function standardDeviation(arr) {
     var sPow2 = sampleVariance(arr);
     return Math.sqrt(sPow2);
+}
+function findQuartiles(arr) {
+    arr = arr.sort(function (a, b) { return a - b; });
+    var middle = Math.floor(arr.length / 2);
+    var arrFirstPart = arr.slice(0, middle);
+    var arrSecondPart = arr.slice(middle + 1, arr.length - 1);
+    return [arr[0], getMedian(arrFirstPart)[0], getMedian(arr)[0], getMedian(arrSecondPart)[0], arr[arr.length - 1]];
 }

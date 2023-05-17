@@ -88,14 +88,6 @@ function createCharts(numbers) {
     pieChart.draw();
 }
 
-function findQuartiles(arr) {
-    arr = arr.sort(function (a, b) { return a - b; });
-    const middle = Math.floor(arr.length/2);
-    const arrFirstPart = arr.slice(0, middle);
-    const arrSecondPart = arr.slice(middle + 1, arr.length - 1);
-
-    return [arr[0], getMedian(arrFirstPart)[0], getMedian(arr)[0], getMedian(arrSecondPart)[0], arr[arr.length - 1]];
-}
 
 // Пример использования
 let numbers = [
