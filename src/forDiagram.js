@@ -1,4 +1,4 @@
-function createHistogram(numbers) {
+function createHistogramAndPolygon(numbers) {
     let frequency = {};
 
     // Подсчет частот
@@ -12,32 +12,41 @@ function createHistogram(numbers) {
     }
 
     // Подготовка данных для гистограммы
-    let data = [];
+    let histogramData = [];
     for (let num in frequency) {
         let count = frequency[num];
-        data.push({ x: num, value: count });
+        histogramData.push({ x: num, value: count });
     }
 
-    // Создание гистограммы с использованием AnyChart
+    // Подготовка данных для полигона
+    let polygonData = [];
+    for (let num in frequency) {
+        let count = frequency[num];
+        polygonData.push([num, count]);
+    }
+
+    // Создание гистограммы и полигона с использованием AnyChart
     anychart.onDocumentReady(function() {
         // Создание гистограммы
-        let chart = anychart.column();
+        let histogramChart = anychart.column();
+        histogramChart.data(histogramData);
+        histogramChart.title("Gisto");
+        histogramChart.xAxis().title("Number");
+        histogramChart.yAxis().title("Frequency");
+        histogramChart.container("container");
+        histogramChart.draw();
 
-        // Загрузка данных в гистограмму
-        chart.data(data);
-
-        // Настройка осей и заголовков
-        chart.title("Gisto");
-        chart.xAxis().title("Number");
-        chart.yAxis().title("Freqency");
-
-        // Отображение гистограммы на странице
-        chart.container("container");
-        chart.draw();
+        // Создание полигона
+        let polygonChart = anychart.line();
+        polygonChart.data(polygonData);
+        polygonChart.title("Polygon");
+        polygonChart.xAxis().title("Number");
+        polygonChart.yAxis().title("Frequency");
+        polygonChart.container("container");
+        polygonChart.draw();
     });
 }
 
 // Пример использования
-let numbers = [1, 2, 2, 3,3,3, 4,4, 5];
-createHistogram(numbers);
-
+let numbers = [1, 2, 3, 2, 1, 3, 3, 4, 5, 4];
+createHistogramAndPolygon(numbers);
