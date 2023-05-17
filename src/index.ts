@@ -49,3 +49,18 @@ function getMode(arr: number[]): Map<number, number> {
 
     return numAndCount;
 }
+
+function sampleVariance(arr: number[]): number {
+    const n = arr.length;
+    const mean = getMean(arr);
+    let sum = 0;
+    for (const num of arr) {
+        sum += Math.pow(num, 2) - n * Math.pow(mean, 2);
+    }
+    return sum/(n - 1);
+}
+
+function standardDeviation(arr: number[]): number {
+    const sPow2 = sampleVariance(arr);
+    return Math.sqrt(sPow2);
+}
