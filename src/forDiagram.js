@@ -2,7 +2,7 @@
 function createCharts(numbers) {
     let frequency = {};
 
-    // Подсчет частот
+    // Підрахунок частот
     for (let i = 0; i < numbers.length; i++) {
         let num = numbers[i];
         if (frequency[num]) {
@@ -12,21 +12,21 @@ function createCharts(numbers) {
         }
     }
 
-    // Подготовка данных для гистограммы
+    // Підготовка даних для гістограми
     let histogramData = [];
     for (let num in frequency) {
         let count = frequency[num];
         histogramData.push({ x: num, value: count });
     }
 
-    // Подготовка данных для полигона
+    // Підготовка даних для полігону
     let polygonData = [];
     for (let num in frequency) {
         let count = frequency[num];
         polygonData.push([num, count]);
     }
 
-    // Создание гистограммы
+    // Створення гістограми
     let histogramChart = anychart.column();
     histogramChart.data(histogramData);
     histogramChart.title("Gisto");
@@ -35,7 +35,7 @@ function createCharts(numbers) {
     histogramChart.container("container1");
     histogramChart.draw();
 
-    // Создание полигона
+    // Створення полігону
     let polygonChart = anychart.line();
     polygonChart.data(polygonData);
     polygonChart.title("Polygon");
@@ -44,7 +44,7 @@ function createCharts(numbers) {
     polygonChart.container("container2");
     polygonChart.draw();
 
-    // Создание диаграммы размаха
+    //Створення діаграми розмаху
     let quartiles = findQuartiles(numbers);
     console.log(quartiles)
     let dataForBox=[{
@@ -55,32 +55,22 @@ function createCharts(numbers) {
         high: quartiles[4]
     }]
 
-
-
     chart = anychart.box();
-
-
     series = chart.box(dataForBox);
-
-
     chart.container("container3");
-
-
     chart.draw();
-    // Создание диаграммы Парето
 
+    // Створення діаграми Парето
     var chart = anychart.pareto();
 
     chart.data(numbers);
     chart.title('Pareto');
     chart.yAxis(0).title('Number');
     chart.yAxis(1).title(' percentage');
-
     chart.container('container4');
-
     chart.draw();
 
-    // Создание круговой диаграммы
+    // Створення колової даіграми
     let pieChart = anychart.pie();
     pieChart.data(histogramData);
     pieChart.title("Pie diagram");
@@ -89,7 +79,7 @@ function createCharts(numbers) {
 }
 
 
-// Пример использования
+// Приклад використання
 let numbers = [
     -0.16, -1.57, -1.06, -4.12, 0.45, -0.49, 2.34, 0.19, 1.06, 2.13, -0.21, 1.19, -0.29, -1.09, 0.03, -0.86, 1.28, 1.58,
     -0.2, 0.55, -0.73, 0.93, -2.39, 1.76, 0.26, -1.12, 1.48, -3.28, -0.33, 1.63, -1.56, -3.03, 2.47, -3.1, -0.67, 0.61,
