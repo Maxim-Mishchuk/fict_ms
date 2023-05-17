@@ -70,6 +70,15 @@ function createCharts(numbers) {
     pieChart.draw();
 }
 
+function findQuartiles(arr) {
+    arr = arr.sort();
+    const middle = Math.floor(arr.length/2);
+    const arrFirstPart = arr.slice(0, middle);
+    const arrSecondPart = arr.slice(middle + 1, arr.length - 1);
+
+    return [arr[0], getMedian(arrFirstPart)[0], getMedian(arr)[0], getMedian(arrSecondPart)[0], arr[arr.length - 1]];
+}
+
 // Пример использования
 let numbers = [1, 2, 3, 2, 1, 3, 3, 4, 5, 4];
 createCharts(numbers);
