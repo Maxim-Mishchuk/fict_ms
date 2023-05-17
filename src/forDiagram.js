@@ -1,4 +1,4 @@
-function createHistogramAndPolygon(numbers) {
+function createCharts(numbers) {
     let frequency = {};
 
     // Подсчет частот
@@ -25,28 +25,51 @@ function createHistogramAndPolygon(numbers) {
         polygonData.push([num, count]);
     }
 
-    // Создание гистограммы и полигона с использованием AnyChart
-    anychart.onDocumentReady(function() {
-        // Создание гистограммы
-        let histogramChart = anychart.column();
-        histogramChart.data(histogramData);
-        histogramChart.title("Gisto");
-        histogramChart.xAxis().title("Number");
-        histogramChart.yAxis().title("Frequency");
-        histogramChart.container("container");
-        histogramChart.draw();
+    // Создание гистограммы
+    let histogramChart = anychart.column();
+    histogramChart.data(histogramData);
+    histogramChart.title("Gisto");
+    histogramChart.xAxis().title("Number");
+    histogramChart.yAxis().title("Frequency ");
+    histogramChart.container("container1");
+    histogramChart.draw();
 
-        // Создание полигона
-        let polygonChart = anychart.line();
-        polygonChart.data(polygonData);
-        polygonChart.title("Polygon");
-        polygonChart.xAxis().title("Number");
-        polygonChart.yAxis().title("Frequency");
-        polygonChart.container("container");
-        polygonChart.draw();
-    });
+    // Создание полигона
+    let polygonChart = anychart.line();
+    polygonChart.data(polygonData);
+    polygonChart.title("Polygon");
+    polygonChart.xAxis().title("Number");
+    polygonChart.yAxis().title("Frequency");
+    polygonChart.container("container2");
+    polygonChart.draw();
+
+    // Создание диаграммы размаха
+    let boxPlotChart = anychart.box();
+    boxPlotChart.data(numbers);
+    boxPlotChart.title("Box plot");
+    boxPlotChart.container("container3");
+    boxPlotChart.draw();
+
+    // Создание диаграммы Парето
+    let paretoChart = anychart.column();
+    paretoChart.data(histogramData);
+    paretoChart.title("Paretto diagram");
+    paretoChart.xAxis().title("Number");
+    paretoChart.yAxis().title("Frequency");
+    paretoChart.container("container4");
+    paretoChart.draw();
+    paretoChart.yScale().stackMode("percent");
+    paretoChart.yAxis().labels().format("{%Value}{numDecimals:0}%");
+    paretoChart.yAxis().title(" Frequency");
+
+    // Создание круговой диаграммы
+    let pieChart = anychart.pie();
+    pieChart.data(histogramData);
+    pieChart.title("Pie diagram");
+    pieChart.container("container4");
+    pieChart.draw();
 }
 
 // Пример использования
 let numbers = [1, 2, 3, 2, 1, 3, 3, 4, 5, 4];
-createHistogramAndPolygon(numbers);
+createCharts(numbers);
