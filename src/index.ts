@@ -1,5 +1,3 @@
-const input: number[] = [];
-
 function getMean(arr: number[]): number {
     let sum = 0;
     for (const num of arr) {
