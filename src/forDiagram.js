@@ -1,3 +1,4 @@
+
 function createCharts(numbers) {
     let frequency = {};
 
@@ -44,14 +45,15 @@ function createCharts(numbers) {
     polygonChart.draw();
 
     // Создание диаграммы размаха
-
-
-
-    let dataForBox=[{low: findQuartiles(numbers)[0],
-        q1:findQuartiles(numbers)[1],
-        median:findQuartiles(numbers)[2],
-        q3:findQuartiles(numbers)[3],
-        high:findQuartiles(numbers)[4]}]
+    let quartiles = findQuartiles(numbers);
+    console.log(quartiles)
+    let dataForBox=[{
+        low: quartiles[0],
+        q1: quartiles[1],
+        median: quartiles[2],
+        q3: quartiles[3],
+        high: quartiles[4]
+    }]
 
 
 
@@ -87,31 +89,14 @@ function createCharts(numbers) {
 }
 
 function findQuartiles(arr) {
-    arr = arr.sort();
+    arr = arr.sort(function (a, b) { return a - b; });
     const middle = Math.floor(arr.length/2);
     const arrFirstPart = arr.slice(0, middle);
     const arrSecondPart = arr.slice(middle + 1, arr.length - 1);
 
     return [arr[0], getMedian(arrFirstPart)[0], getMedian(arr)[0], getMedian(arrSecondPart)[0], arr[arr.length - 1]];
 }
-function getMedian(arr) {
-    var median = [];
-    arr = arr.sort(function(a, b) {
-        return a - b;
-    });
-    if (arr.length % 2 === 1) {
-        var index = Math.floor(arr.length / 2 - 1);
-        median.push(arr[index]);
-    }
-    else if (arr.length % 2 === 0) {
-        var indexes = [arr.length / 2 - 1, arr.length / 2];
-        for (var _i = 0, indexes_1 = indexes; _i < indexes_1.length; _i++) {
-            var index = indexes_1[_i];
-            median.push(arr[index]);
-        }
-    }
-    return median;
-}
+
 // Пример использования
 let numbers = [1, 2, 3, 2, 1, 3, 3, 4, 5, 4,22,31,21,32,3,2,3];
 createCharts(numbers);

@@ -9,7 +9,7 @@ function getMean(arr) {
 }
 function getMedian(arr) {
     var median = [];
-    arr = arr.sort();
+    arr = arr.sort(function (a, b) { return a - b; });
     if (arr.length % 2 === 1) {
         var index = Math.floor(arr.length / 2 - 1);
         median.push(arr[index]);
@@ -25,7 +25,7 @@ function getMedian(arr) {
 }
 function getMode(arr) {
     var numAndCount = new Map();
-    arr = arr.sort();
+    arr = arr.sort(function (a, b) { return a - b; });
     var num_current, num_previous = arr[0], counter = 1, max_count = 0;
     for (var i = 1; i < arr.length; i++) {
         num_current = arr[i];

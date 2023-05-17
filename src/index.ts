@@ -10,7 +10,7 @@ function getMean(arr: number[]): number {
 
 function getMedian(arr: number[]): number[] {
     let median: number[] = [];
-    arr = arr.sort();
+    arr = arr.sort((a, b) => a - b);
     if(arr.length % 2 === 1) {
         let index = Math.floor(arr.length/2 - 1);
         median.push(arr[index]);
@@ -25,7 +25,7 @@ function getMedian(arr: number[]): number[] {
 
 function getMode(arr: number[]): Map<number, number> {
     let numAndCount = new Map<number, number>();
-    arr = arr.sort();
+    arr = arr.sort((a, b) => a - b);
     let num_current: number,
         num_previous: number = arr[0],
         counter: number = 1,
